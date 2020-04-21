@@ -10,6 +10,16 @@
 		FA439358244E7F8000120074 /* TDLib_json_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA43934E244E7F7F00120074 /* TDLib_json_ios.framework */; };
 		FA43935D244E7F8000120074 /* TDLib_json_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA43935C244E7F8000120074 /* TDLib_json_iosTests.swift */; };
 		FA43935F244E7F8000120074 /* TDLib_json_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = FA439351244E7F7F00120074 /* TDLib_json_ios.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA439378244E814F00120074 /* TlObject.h in Headers */ = {isa = PBXBuildFile; fileRef = FA43936D244E814F00120074 /* TlObject.h */; };
+		FA439379244E814F00120074 /* tdjson_export.h in Headers */ = {isa = PBXBuildFile; fileRef = FA43936F244E814F00120074 /* tdjson_export.h */; };
+		FA43937A244E814F00120074 /* td_json_client.h in Headers */ = {isa = PBXBuildFile; fileRef = FA439370244E814F00120074 /* td_json_client.h */; };
+		FA43937B244E814F00120074 /* Client.h in Headers */ = {isa = PBXBuildFile; fileRef = FA439371244E814F00120074 /* Client.h */; };
+		FA43937C244E814F00120074 /* td_api.h in Headers */ = {isa = PBXBuildFile; fileRef = FA439372244E814F00120074 /* td_api.h */; };
+		FA43937D244E814F00120074 /* td_log.h in Headers */ = {isa = PBXBuildFile; fileRef = FA439373244E814F00120074 /* td_log.h */; };
+		FA43937E244E814F00120074 /* td_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FA439374244E814F00120074 /* td_api.hpp */; };
+		FA43937F244E814F00120074 /* Log.h in Headers */ = {isa = PBXBuildFile; fileRef = FA439375244E814F00120074 /* Log.h */; };
+		FA439380244E814F00120074 /* libtdjson.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA439377244E814F00120074 /* libtdjson.dylib */; };
+		FA439381244E814F00120074 /* libtdjson.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA439377244E814F00120074 /* libtdjson.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +39,15 @@
 		FA439357244E7F8000120074 /* TDLib-json-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TDLib-json-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA43935C244E7F8000120074 /* TDLib_json_iosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDLib_json_iosTests.swift; sourceTree = "<group>"; };
 		FA43935E244E7F8000120074 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA43936D244E814F00120074 /* TlObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TlObject.h; sourceTree = "<group>"; };
+		FA43936F244E814F00120074 /* tdjson_export.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tdjson_export.h; sourceTree = "<group>"; };
+		FA439370244E814F00120074 /* td_json_client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = td_json_client.h; sourceTree = "<group>"; };
+		FA439371244E814F00120074 /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
+		FA439372244E814F00120074 /* td_api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = td_api.h; sourceTree = "<group>"; };
+		FA439373244E814F00120074 /* td_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = td_log.h; sourceTree = "<group>"; };
+		FA439374244E814F00120074 /* td_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = td_api.hpp; sourceTree = "<group>"; };
+		FA439375244E814F00120074 /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
+		FA439377244E814F00120074 /* libtdjson.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtdjson.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA439380244E814F00120074 /* libtdjson.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA439381244E814F00120074 /* libtdjson.dylib in Frameworks */,
 				FA439358244E7F8000120074 /* TDLib_json_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +92,7 @@
 		FA439350244E7F7F00120074 /* TDLib-json-ios */ = {
 			isa = PBXGroup;
 			children = (
+				FA439368244E814F00120074 /* td */,
 				FA439351244E7F7F00120074 /* TDLib_json_ios.h */,
 				FA439352244E7F7F00120074 /* Info.plist */,
 			);
@@ -86,6 +108,70 @@
 			path = "TDLib-json-iosTests";
 			sourceTree = "<group>";
 		};
+		FA439368244E814F00120074 /* td */ = {
+			isa = PBXGroup;
+			children = (
+				FA439369244E814F00120074 /* iOS */,
+			);
+			path = td;
+			sourceTree = "<group>";
+		};
+		FA439369244E814F00120074 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				FA43936A244E814F00120074 /* include */,
+				FA439376244E814F00120074 /* lib */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		FA43936A244E814F00120074 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				FA43936B244E814F00120074 /* td */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		FA43936B244E814F00120074 /* td */ = {
+			isa = PBXGroup;
+			children = (
+				FA43936C244E814F00120074 /* tl */,
+				FA43936E244E814F00120074 /* telegram */,
+			);
+			path = td;
+			sourceTree = "<group>";
+		};
+		FA43936C244E814F00120074 /* tl */ = {
+			isa = PBXGroup;
+			children = (
+				FA43936D244E814F00120074 /* TlObject.h */,
+			);
+			path = tl;
+			sourceTree = "<group>";
+		};
+		FA43936E244E814F00120074 /* telegram */ = {
+			isa = PBXGroup;
+			children = (
+				FA43936F244E814F00120074 /* tdjson_export.h */,
+				FA439370244E814F00120074 /* td_json_client.h */,
+				FA439371244E814F00120074 /* Client.h */,
+				FA439372244E814F00120074 /* td_api.h */,
+				FA439373244E814F00120074 /* td_log.h */,
+				FA439374244E814F00120074 /* td_api.hpp */,
+				FA439375244E814F00120074 /* Log.h */,
+			);
+			path = telegram;
+			sourceTree = "<group>";
+		};
+		FA439376244E814F00120074 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				FA439377244E814F00120074 /* libtdjson.dylib */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -93,7 +179,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA43937F244E814F00120074 /* Log.h in Headers */,
 				FA43935F244E7F8000120074 /* TDLib_json_ios.h in Headers */,
+				FA43937E244E814F00120074 /* td_api.hpp in Headers */,
+				FA43937C244E814F00120074 /* td_api.h in Headers */,
+				FA43937D244E814F00120074 /* td_log.h in Headers */,
+				FA43937A244E814F00120074 /* td_json_client.h in Headers */,
+				FA439379244E814F00120074 /* tdjson_export.h in Headers */,
+				FA439378244E814F00120074 /* TlObject.h in Headers */,
+				FA43937B244E814F00120074 /* Client.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +447,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TDLib-json-ios/td/iOS/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kebbbnnn.TDLib-json-ios";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -377,6 +475,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TDLib-json-ios/td/iOS/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kebbbnnn.TDLib-json-ios";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -396,6 +498,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TDLib-json-ios/td/iOS/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kebbbnnn.TDLib-json-iosTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -413,6 +519,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TDLib-json-ios/td/iOS/lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kebbbnnn.TDLib-json-iosTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
