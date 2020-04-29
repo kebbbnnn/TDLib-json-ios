@@ -1,5 +1,5 @@
 //
-//  GetChatReportSpamState.swift
+//  RemoveChatActionBar.swift
 //  tl2swift
 //
 //  Created by Code Generator
@@ -8,8 +8,8 @@
 import Foundation
 
 
-/// Returns information on whether the current chat can be reported as spam
-public struct GetChatReportSpamState: Codable {
+/// Removes a chat action bar without any other action
+public struct RemoveChatActionBar: Codable {
 
     /// Chat identifier
     public let chatId: Int64

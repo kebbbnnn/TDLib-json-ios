@@ -8,7 +8,7 @@
 import Foundation
 
 
-/// Changes the pinned state of a chat. You can pin up to GetOption("pinned_chat_count_max") non-secret chats and the same number of secret chats
+/// Changes the pinned state of a chat. You can pin up to GetOption("pinned_chat_count_max")/GetOption("pinned_archived_chat_count_max") non-secret chats and the same number of secret chats in the main/archive chat list
 public struct ToggleChatIsPinned: Codable {
 
     /// Chat identifier

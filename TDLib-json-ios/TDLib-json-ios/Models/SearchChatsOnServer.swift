@@ -11,7 +11,7 @@ import Foundation
 /// Searches for the specified query in the title and username of already known chats via request to the server. Returns chats in the order seen in the chat list
 public struct SearchChatsOnServer: Codable {
 
-    /// Maximum number of chats to be returned
+    /// The maximum number of chats to be returned
     public let limit: Int
 
     /// Query to search for

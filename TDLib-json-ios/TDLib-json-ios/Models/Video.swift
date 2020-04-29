@@ -17,7 +17,7 @@ public struct Video: Codable {
     /// Original name of the file; as defined by the sender
     public let fileName: String
 
-    /// True, if stickers were added to the photo
+    /// True, if stickers were added to the video
     public let hasStickers: Bool
 
     /// Video height; as defined by the sender

@@ -38,7 +38,7 @@ public enum InputInlineQueryResult: Codable {
     /// Represents link to a JPEG image
     case inputInlineQueryResultPhoto(InputInlineQueryResultPhoto)
 
-    /// Represents a link to a WEBP or a TGS sticker
+    /// Represents a link to a WEBP or TGS sticker
     case inputInlineQueryResultSticker(InputInlineQueryResultSticker)
 
     /// Represents information about a venue
@@ -602,7 +602,7 @@ public struct InputInlineQueryResultPhoto: Codable {
     }
 }
 
-/// Represents a link to a WEBP or a TGS sticker
+/// Represents a link to a WEBP or TGS sticker
 public struct InputInlineQueryResultSticker: Codable {
 
     /// Unique identifier of the query result
@@ -617,7 +617,7 @@ public struct InputInlineQueryResultSticker: Codable {
     /// Height of the sticker
     public let stickerHeight: Int
 
-    /// The URL of the WEBP or a TGS sticker (sticker file size must not exceed 5MB)
+    /// The URL of the WEBP or TGS sticker (sticker file size must not exceed 5MB)
     public let stickerUrl: String
 
     /// Width of the sticker

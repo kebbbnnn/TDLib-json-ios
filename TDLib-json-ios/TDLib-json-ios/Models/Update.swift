@@ -41,8 +41,14 @@ public enum Update: Codable {
     /// A message with an unread mention was read
     case updateMessageMentionRead(UpdateMessageMentionRead)
 
+    /// A message with a live location was viewed. When the update is received, the client is supposed to update the live location
+    case updateMessageLiveLocationViewed(UpdateMessageLiveLocationViewed)
+
     /// A new chat has been loaded/created. This update is guaranteed to come before the chat identifier is returned to the client. The chat field changes will be reported through separate updates
     case updateNewChat(UpdateNewChat)
+
+    /// The list to which the chat belongs was changed. This update is guaranteed to be sent only when chat.order == 0 and the current or the new chat list is null
+    case updateChatChatList(UpdateChatChatList)
 
     /// The title of a chat was changed
     case updateChatTitle(UpdateChatTitle)
@@ -53,10 +59,10 @@ public enum Update: Codable {
     /// Chat permissions was changed
     case updateChatPermissions(UpdateChatPermissions)
 
-    /// The last message of a chat was changed. If last_message is null then the last message in the chat became unknown. Some new unknown messages might be added to the chat in this case
+    /// The last message of a chat was changed. If last_message is null, then the last message in the chat became unknown. Some new unknown messages might be added to the chat in this case
     case updateChatLastMessage(UpdateChatLastMessage)
 
-    /// The order of the chat in the chat list has changed. Instead of this update updateChatLastMessage, updateChatIsPinned or updateChatDraftMessage might be sent
+    /// The order of the chat in the chat list has changed. Instead of this update updateChatLastMessage, updateChatIsPinned, updateChatDraftMessage, or updateChatIsSponsored might be sent
     case updateChatOrder(UpdateChatOrder)
 
     /// A chat was pinned or unpinned
@@ -67,6 +73,9 @@ public enum Update: Codable {
 
     /// A chat's is_sponsored field has changed
     case updateChatIsSponsored(UpdateChatIsSponsored)
+
+    /// A chat's has_scheduled_messages field has changed
+    case updateChatHasScheduledMessages(UpdateChatHasScheduledMessages)
 
     /// The value of the default disable_notification parameter, used when a message is sent to the chat, was changed
     case updateChatDefaultDisableNotification(UpdateChatDefaultDisableNotification)
@@ -86,6 +95,9 @@ public enum Update: Codable {
     /// Notification settings for some type of chats were updated
     case updateScopeNotificationSettings(UpdateScopeNotificationSettings)
 
+    /// The chat action bar was changed
+    case updateChatActionBar(UpdateChatActionBar)
+
     /// The chat pinned message was changed
     case updateChatPinnedMessage(UpdateChatPinnedMessage)
 
@@ -104,10 +116,10 @@ public enum Update: Codable {
     /// A list of active notifications in a notification group has changed
     case updateNotificationGroup(UpdateNotificationGroup)
 
-    /// Contains active notifications that was shown on previous application launches. This update is sent only if a message database is used. In that case it comes once before any updateNotification and updateNotificationGroup update
+    /// Contains active notifications that was shown on previous application launches. This update is sent only if the message database is used. In that case it comes once before any updateNotification and updateNotificationGroup update
     case updateActiveNotifications(UpdateActiveNotifications)
 
-    /// Describes, whether there are some pending notification updates. Can be used to prevent application from killing, while there are some pending notifications
+    /// Describes whether there are some pending notification updates. Can be used to prevent application from killing, while there are some pending notifications
     case updateHavePendingNotifications(UpdateHavePendingNotifications)
 
     /// Some messages were deleted
@@ -158,14 +170,17 @@ public enum Update: Codable {
     /// Some privacy setting rules have been changed
     case updateUserPrivacySettingRules(UpdateUserPrivacySettingRules)
 
-    /// Number of unread messages has changed. This update is sent only if a message database is used
+    /// Number of unread messages in a chat list has changed. This update is sent only if the message database is used
     case updateUnreadMessageCount(UpdateUnreadMessageCount)
 
-    /// Number of unread chats, i.e. with unread messages or marked as unread, has changed. This update is sent only if a message database is used
+    /// Number of unread chats, i.e. with unread messages or marked as unread, has changed. This update is sent only if the message database is used
     case updateUnreadChatCount(UpdateUnreadChatCount)
 
     /// An option changed its value
     case updateOption(UpdateOption)
+
+    /// A sticker set has changed
+    case updateStickerSet(UpdateStickerSet)
 
     /// The list of installed sticker sets was updated
     case updateInstalledStickerSets(UpdateInstalledStickerSets)
@@ -194,6 +209,12 @@ public enum Update: Codable {
     /// New terms of service must be accepted by the user. If the terms of service are declined, then the deleteAccount method should be called with the reason "Decline ToS update"
     case updateTermsOfService(UpdateTermsOfService)
 
+    /// The list of users nearby has changed. The update is sent only 60 seconds after a successful searchChatsNearby request
+    case updateUsersNearby(UpdateUsersNearby)
+
+    /// The list of supported dice emojis has changed
+    case updateDiceEmojis(UpdateDiceEmojis)
+
     /// A new incoming inline query; for bots only
     case updateNewInlineQuery(UpdateNewInlineQuery)
 
@@ -218,8 +239,11 @@ public enum Update: Codable {
     /// A new incoming query; for bots only
     case updateNewCustomQuery(UpdateNewCustomQuery)
 
-    /// Information about a poll was updated; for bots only
+    /// A poll was updated; for bots only
     case updatePoll(UpdatePoll)
+
+    /// A user changed the answer to a poll; for bots only
+    case updatePollAnswer(UpdatePollAnswer)
 
 
     private enum Kind: String, Codable {
@@ -233,7 +257,9 @@ public enum Update: Codable {
         case updateMessageViews
         case updateMessageContentOpened
         case updateMessageMentionRead
+        case updateMessageLiveLocationViewed
         case updateNewChat
+        case updateChatChatList
         case updateChatTitle
         case updateChatPhoto
         case updateChatPermissions
@@ -242,12 +268,14 @@ public enum Update: Codable {
         case updateChatIsPinned
         case updateChatIsMarkedAsUnread
         case updateChatIsSponsored
+        case updateChatHasScheduledMessages
         case updateChatDefaultDisableNotification
         case updateChatReadInbox
         case updateChatReadOutbox
         case updateChatUnreadMentionCount
         case updateChatNotificationSettings
         case updateScopeNotificationSettings
+        case updateChatActionBar
         case updateChatPinnedMessage
         case updateChatReplyMarkup
         case updateChatDraftMessage
@@ -275,6 +303,7 @@ public enum Update: Codable {
         case updateUnreadMessageCount
         case updateUnreadChatCount
         case updateOption
+        case updateStickerSet
         case updateInstalledStickerSets
         case updateTrendingStickerSets
         case updateRecentStickers
@@ -284,6 +313,8 @@ public enum Update: Codable {
         case updateLanguagePackStrings
         case updateConnectionState
         case updateTermsOfService
+        case updateUsersNearby
+        case updateDiceEmojis
         case updateNewInlineQuery
         case updateNewChosenInlineResult
         case updateNewCallbackQuery
@@ -293,6 +324,7 @@ public enum Update: Codable {
         case updateNewCustomEvent
         case updateNewCustomQuery
         case updatePoll
+        case updatePollAnswer
     }
 
     public init(from decoder: Decoder) throws {
@@ -329,9 +361,15 @@ public enum Update: Codable {
         case .updateMessageMentionRead:
             let value = try UpdateMessageMentionRead(from: decoder)
             self = .updateMessageMentionRead(value)
+        case .updateMessageLiveLocationViewed:
+            let value = try UpdateMessageLiveLocationViewed(from: decoder)
+            self = .updateMessageLiveLocationViewed(value)
         case .updateNewChat:
             let value = try UpdateNewChat(from: decoder)
             self = .updateNewChat(value)
+        case .updateChatChatList:
+            let value = try UpdateChatChatList(from: decoder)
+            self = .updateChatChatList(value)
         case .updateChatTitle:
             let value = try UpdateChatTitle(from: decoder)
             self = .updateChatTitle(value)
@@ -356,6 +394,9 @@ public enum Update: Codable {
         case .updateChatIsSponsored:
             let value = try UpdateChatIsSponsored(from: decoder)
             self = .updateChatIsSponsored(value)
+        case .updateChatHasScheduledMessages:
+            let value = try UpdateChatHasScheduledMessages(from: decoder)
+            self = .updateChatHasScheduledMessages(value)
         case .updateChatDefaultDisableNotification:
             let value = try UpdateChatDefaultDisableNotification(from: decoder)
             self = .updateChatDefaultDisableNotification(value)
@@ -374,6 +415,9 @@ public enum Update: Codable {
         case .updateScopeNotificationSettings:
             let value = try UpdateScopeNotificationSettings(from: decoder)
             self = .updateScopeNotificationSettings(value)
+        case .updateChatActionBar:
+            let value = try UpdateChatActionBar(from: decoder)
+            self = .updateChatActionBar(value)
         case .updateChatPinnedMessage:
             let value = try UpdateChatPinnedMessage(from: decoder)
             self = .updateChatPinnedMessage(value)
@@ -455,6 +499,9 @@ public enum Update: Codable {
         case .updateOption:
             let value = try UpdateOption(from: decoder)
             self = .updateOption(value)
+        case .updateStickerSet:
+            let value = try UpdateStickerSet(from: decoder)
+            self = .updateStickerSet(value)
         case .updateInstalledStickerSets:
             let value = try UpdateInstalledStickerSets(from: decoder)
             self = .updateInstalledStickerSets(value)
@@ -482,6 +529,12 @@ public enum Update: Codable {
         case .updateTermsOfService:
             let value = try UpdateTermsOfService(from: decoder)
             self = .updateTermsOfService(value)
+        case .updateUsersNearby:
+            let value = try UpdateUsersNearby(from: decoder)
+            self = .updateUsersNearby(value)
+        case .updateDiceEmojis:
+            let value = try UpdateDiceEmojis(from: decoder)
+            self = .updateDiceEmojis(value)
         case .updateNewInlineQuery:
             let value = try UpdateNewInlineQuery(from: decoder)
             self = .updateNewInlineQuery(value)
@@ -509,6 +562,9 @@ public enum Update: Codable {
         case .updatePoll:
             let value = try UpdatePoll(from: decoder)
             self = .updatePoll(value)
+        case .updatePollAnswer:
+            let value = try UpdatePollAnswer(from: decoder)
+            self = .updatePollAnswer(value)
         }
     }
 
@@ -545,8 +601,14 @@ public enum Update: Codable {
         case .updateMessageMentionRead(let value):
             try container.encode(Kind.updateMessageMentionRead, forKey: .type)
             try value.encode(to: encoder)
+        case .updateMessageLiveLocationViewed(let value):
+            try container.encode(Kind.updateMessageLiveLocationViewed, forKey: .type)
+            try value.encode(to: encoder)
         case .updateNewChat(let value):
             try container.encode(Kind.updateNewChat, forKey: .type)
+            try value.encode(to: encoder)
+        case .updateChatChatList(let value):
+            try container.encode(Kind.updateChatChatList, forKey: .type)
             try value.encode(to: encoder)
         case .updateChatTitle(let value):
             try container.encode(Kind.updateChatTitle, forKey: .type)
@@ -572,6 +634,9 @@ public enum Update: Codable {
         case .updateChatIsSponsored(let value):
             try container.encode(Kind.updateChatIsSponsored, forKey: .type)
             try value.encode(to: encoder)
+        case .updateChatHasScheduledMessages(let value):
+            try container.encode(Kind.updateChatHasScheduledMessages, forKey: .type)
+            try value.encode(to: encoder)
         case .updateChatDefaultDisableNotification(let value):
             try container.encode(Kind.updateChatDefaultDisableNotification, forKey: .type)
             try value.encode(to: encoder)
@@ -589,6 +654,9 @@ public enum Update: Codable {
             try value.encode(to: encoder)
         case .updateScopeNotificationSettings(let value):
             try container.encode(Kind.updateScopeNotificationSettings, forKey: .type)
+            try value.encode(to: encoder)
+        case .updateChatActionBar(let value):
+            try container.encode(Kind.updateChatActionBar, forKey: .type)
             try value.encode(to: encoder)
         case .updateChatPinnedMessage(let value):
             try container.encode(Kind.updateChatPinnedMessage, forKey: .type)
@@ -671,6 +739,9 @@ public enum Update: Codable {
         case .updateOption(let value):
             try container.encode(Kind.updateOption, forKey: .type)
             try value.encode(to: encoder)
+        case .updateStickerSet(let value):
+            try container.encode(Kind.updateStickerSet, forKey: .type)
+            try value.encode(to: encoder)
         case .updateInstalledStickerSets(let value):
             try container.encode(Kind.updateInstalledStickerSets, forKey: .type)
             try value.encode(to: encoder)
@@ -698,6 +769,12 @@ public enum Update: Codable {
         case .updateTermsOfService(let value):
             try container.encode(Kind.updateTermsOfService, forKey: .type)
             try value.encode(to: encoder)
+        case .updateUsersNearby(let value):
+            try container.encode(Kind.updateUsersNearby, forKey: .type)
+            try value.encode(to: encoder)
+        case .updateDiceEmojis(let value):
+            try container.encode(Kind.updateDiceEmojis, forKey: .type)
+            try value.encode(to: encoder)
         case .updateNewInlineQuery(let value):
             try container.encode(Kind.updateNewInlineQuery, forKey: .type)
             try value.encode(to: encoder)
@@ -724,6 +801,9 @@ public enum Update: Codable {
             try value.encode(to: encoder)
         case .updatePoll(let value):
             try container.encode(Kind.updatePoll, forKey: .type)
+            try value.encode(to: encoder)
+        case .updatePollAnswer(let value):
+            try container.encode(Kind.updatePollAnswer, forKey: .type)
             try value.encode(to: encoder)
         }
     }
@@ -940,6 +1020,25 @@ public struct UpdateMessageMentionRead: Codable {
     }
 }
 
+/// A message with a live location was viewed. When the update is received, the client is supposed to update the live location
+public struct UpdateMessageLiveLocationViewed: Codable {
+
+    /// Identifier of the chat with the live location message
+    public let chatId: Int64
+
+    /// Identifier of the message with live location
+    public let messageId: Int64
+
+
+    public init (
+        chatId: Int64,
+        messageId: Int64) {
+
+        self.chatId = chatId
+        self.messageId = messageId
+    }
+}
+
 /// A new chat has been loaded/created. This update is guaranteed to come before the chat identifier is returned to the client. The chat field changes will be reported through separate updates
 public struct UpdateNewChat: Codable {
 
@@ -949,6 +1048,25 @@ public struct UpdateNewChat: Codable {
 
     public init (chat: Chat) {
         self.chat = chat
+    }
+}
+
+/// The list to which the chat belongs was changed. This update is guaranteed to be sent only when chat.order == 0 and the current or the new chat list is null
+public struct UpdateChatChatList: Codable {
+
+    /// Chat identifier
+    public let chatId: Int64
+
+    /// The new chat's chat list; may be null
+    public let chatList: ChatList?
+
+
+    public init (
+        chatId: Int64,
+        chatList: ChatList?) {
+
+        self.chatId = chatId
+        self.chatList = chatList
     }
 }
 
@@ -1009,7 +1127,7 @@ public struct UpdateChatPermissions: Codable {
     }
 }
 
-/// The last message of a chat was changed. If last_message is null then the last message in the chat became unknown. Some new unknown messages might be added to the chat in this case
+/// The last message of a chat was changed. If last_message is null, then the last message in the chat became unknown. Some new unknown messages might be added to the chat in this case
 public struct UpdateChatLastMessage: Codable {
 
     /// Chat identifier
@@ -1033,7 +1151,7 @@ public struct UpdateChatLastMessage: Codable {
     }
 }
 
-/// The order of the chat in the chat list has changed. Instead of this update updateChatLastMessage, updateChatIsPinned or updateChatDraftMessage might be sent
+/// The order of the chat in the chat list has changed. Instead of this update updateChatLastMessage, updateChatIsPinned, updateChatDraftMessage, or updateChatIsSponsored might be sent
 public struct UpdateChatOrder: Codable {
 
     /// Chat identifier
@@ -1116,6 +1234,25 @@ public struct UpdateChatIsSponsored: Codable {
         self.chatId = chatId
         self.isSponsored = isSponsored
         self.order = order
+    }
+}
+
+/// A chat's has_scheduled_messages field has changed
+public struct UpdateChatHasScheduledMessages: Codable {
+
+    /// Chat identifier
+    public let chatId: Int64
+
+    /// New value of has_scheduled_messages
+    public let hasScheduledMessages: Bool
+
+
+    public init (
+        chatId: Int64,
+        hasScheduledMessages: Bool) {
+
+        self.chatId = chatId
+        self.hasScheduledMessages = hasScheduledMessages
     }
 }
 
@@ -1235,6 +1372,25 @@ public struct UpdateScopeNotificationSettings: Codable {
 
         self.notificationSettings = notificationSettings
         self.scope = scope
+    }
+}
+
+/// The chat action bar was changed
+public struct UpdateChatActionBar: Codable {
+
+    /// The new value of the action bar; may be null
+    public let actionBar: ChatActionBar?
+
+    /// Chat identifier
+    public let chatId: Int64
+
+
+    public init (
+        actionBar: ChatActionBar?,
+        chatId: Int64) {
+
+        self.actionBar = actionBar
+        self.chatId = chatId
     }
 }
 
@@ -1387,7 +1543,7 @@ public struct UpdateNotificationGroup: Codable {
     }
 }
 
-/// Contains active notifications that was shown on previous application launches. This update is sent only if a message database is used. In that case it comes once before any updateNotification and updateNotificationGroup update
+/// Contains active notifications that was shown on previous application launches. This update is sent only if the message database is used. In that case it comes once before any updateNotification and updateNotificationGroup update
 public struct UpdateActiveNotifications: Codable {
 
     /// Lists of active notification groups
@@ -1399,7 +1555,7 @@ public struct UpdateActiveNotifications: Codable {
     }
 }
 
-/// Describes, whether there are some pending notification updates. Can be used to prevent application from killing, while there are some pending notifications
+/// Describes whether there are some pending notification updates. Can be used to prevent application from killing, while there are some pending notifications
 public struct UpdateHavePendingNotifications: Codable {
 
     /// True, if there are some delayed notification updates, which will be sent soon
@@ -1698,8 +1854,11 @@ public struct UpdateUserPrivacySettingRules: Codable {
     }
 }
 
-/// Number of unread messages has changed. This update is sent only if a message database is used
+/// Number of unread messages in a chat list has changed. This update is sent only if the message database is used
 public struct UpdateUnreadMessageCount: Codable {
+
+    /// The chat list with changed number of unread messages
+    public let chatList: ChatList
 
     /// Total number of unread messages
     public let unreadCount: Int
@@ -1709,22 +1868,30 @@ public struct UpdateUnreadMessageCount: Codable {
 
 
     public init (
+        chatList: ChatList,
         unreadCount: Int,
         unreadUnmutedCount: Int) {
 
+        self.chatList = chatList
         self.unreadCount = unreadCount
         self.unreadUnmutedCount = unreadUnmutedCount
     }
 }
 
-/// Number of unread chats, i.e. with unread messages or marked as unread, has changed. This update is sent only if a message database is used
+/// Number of unread chats, i.e. with unread messages or marked as unread, has changed. This update is sent only if the message database is used
 public struct UpdateUnreadChatCount: Codable {
+
+    /// The chat list with changed number of unread messages
+    public let chatList: ChatList
 
     /// Total number of chats marked as unread
     public let markedAsUnreadCount: Int
 
     /// Total number of unmuted chats marked as unread
     public let markedAsUnreadUnmutedCount: Int
+
+    /// Approximate total number of chats in the chat list
+    public let totalCount: Int
 
     /// Total number of unread chats
     public let unreadCount: Int
@@ -1734,13 +1901,17 @@ public struct UpdateUnreadChatCount: Codable {
 
 
     public init (
+        chatList: ChatList,
         markedAsUnreadCount: Int,
         markedAsUnreadUnmutedCount: Int,
+        totalCount: Int,
         unreadCount: Int,
         unreadUnmutedCount: Int) {
 
+        self.chatList = chatList
         self.markedAsUnreadCount = markedAsUnreadCount
         self.markedAsUnreadUnmutedCount = markedAsUnreadUnmutedCount
+        self.totalCount = totalCount
         self.unreadCount = unreadCount
         self.unreadUnmutedCount = unreadUnmutedCount
     }
@@ -1762,6 +1933,18 @@ public struct UpdateOption: Codable {
 
         self.name = name
         self.value = value
+    }
+}
+
+/// A sticker set has changed
+public struct UpdateStickerSet: Codable {
+
+    /// The sticker set
+    public let stickerSet: StickerSet
+
+
+    public init (stickerSet: StickerSet) {
+        self.stickerSet = stickerSet
     }
 }
 
@@ -1787,7 +1970,7 @@ public struct UpdateInstalledStickerSets: Codable {
 /// The list of trending sticker sets was updated or some of them were viewed
 public struct UpdateTrendingStickerSets: Codable {
 
-    /// The new list of trending sticker sets
+    /// The prefix of the list of trending sticker sets with the newest trending sticker sets
     public let stickerSets: StickerSets
 
 
@@ -1913,6 +2096,30 @@ public struct UpdateTermsOfService: Codable {
     }
 }
 
+/// The list of users nearby has changed. The update is sent only 60 seconds after a successful searchChatsNearby request
+public struct UpdateUsersNearby: Codable {
+
+    /// The new list of users nearby
+    public let usersNearby: [ChatNearby]
+
+
+    public init (usersNearby: [ChatNearby]) {
+        self.usersNearby = usersNearby
+    }
+}
+
+/// The list of supported dice emojis has changed
+public struct UpdateDiceEmojis: Codable {
+
+    /// The new list of supported dice emojis
+    public let emojis: [String]
+
+
+    public init (emojis: [String]) {
+        self.emojis = emojis
+    }
+}
+
 /// A new incoming inline query; for bots only
 public struct UpdateNewInlineQuery: Codable {
 
@@ -1984,7 +2191,7 @@ public struct UpdateNewChosenInlineResult: Codable {
 /// A new incoming callback query; for bots only
 public struct UpdateNewCallbackQuery: Codable {
 
-    /// Identifier of the chat, in which the query was sent
+    /// Identifier of the chat where the query was sent
     public let chatId: Int64
 
     /// Identifier that uniquely corresponds to the chat to which the message was sent
@@ -2163,7 +2370,7 @@ public struct UpdateNewCustomQuery: Codable {
     }
 }
 
-/// Information about a poll was updated; for bots only
+/// A poll was updated; for bots only
 public struct UpdatePoll: Codable {
 
     /// New data about the poll
@@ -2172,6 +2379,30 @@ public struct UpdatePoll: Codable {
 
     public init (poll: Poll) {
         self.poll = poll
+    }
+}
+
+/// A user changed the answer to a poll; for bots only
+public struct UpdatePollAnswer: Codable {
+
+    /// 0-based identifiers of answer options, chosen by the user
+    public let optionIds: [Int]
+
+    /// Unique poll identifier
+    public let pollId: TdInt64
+
+    /// The user, who changed the answer to the poll
+    public let userId: Int
+
+
+    public init (
+        optionIds: [Int],
+        pollId: TdInt64,
+        userId: Int) {
+
+        self.optionIds = optionIds
+        self.pollId = pollId
+        self.userId = userId
     }
 }
 
