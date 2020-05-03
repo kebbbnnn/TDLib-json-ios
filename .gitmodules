@@ -1,0 +1,3 @@
+[submodule "TDLib-json-ios/submodule/td"]
+	path = TDLib-json-ios/submodule/td
+	url = https://github.com/tdlib/td.git
